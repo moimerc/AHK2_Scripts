@@ -2,10 +2,10 @@
 ; ---------------------------------------------------------------------------
 ; [INDEX]
 ; ---------------------------------------------------------------------------
-; ⬛ Surface Pen 전용 단축키 (LWin 조합)
-;    ├─ 활성 프로세스 강제 종료           |  LWin + F18
-;    ├─ Alt-Tab 메뉴 닫기                |  LWin + F19
-;    └─ Alt-Tab 메뉴 열기                |  LWin + F20
+; ⬛ Surface Pen Hotkeys (LWin combos)
+;    ├─ Force-kill active process         |  LWin + F18
+;    ├─ Dismiss Alt-Tab menu              |  LWin + F19
+;    └─ Open Alt-Tab menu                 |  LWin + F20
 ; ---------------------------------------------------------------------------
 
 ; Kill the current active process
