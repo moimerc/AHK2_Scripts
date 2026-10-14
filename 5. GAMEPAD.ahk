@@ -2,35 +2,35 @@
 ; ---------------------------------------------------------------------------
 ; [INDEX]
 ; ---------------------------------------------------------------------------
-; ⬛ HOME 버튼 (Browser_Home)
-;    ├─ 모든 모디파이어 강제 해제
-;    ├─ D-PAD 폴링 OFF (CheckPOV_A / CheckPOV_C)
-;    └─ 캡처 도구 실행 (ms-screenclip, 250ms 디바운스)
+; ⬛ HOME button (Browser_Home)
+;    ├─ Force-release all modifiers
+;    ├─ D-PAD polling OFF (CheckPOV_A / CheckPOV_C)
+;    └─ Launch Snipping Tool (ms-screenclip, 250ms debounce)
 ;
-; 🎮 게임패드 버튼 (단타 / 롱프레스)
-;    ├─ A   (Joy1)                        |  단: Sublime Text     롱: LDPlayer (+ D-PAD)
-;    ├─ B   (Joy2)                        |  단: Edge Legacy      롱: Edge
-;    ├─ X   (Joy4)                        |  단: CMD              롱: Terminal
-;    ├─ Y   (Joy5)                        |  단: OneNote          롱: Ctrl + P
-;    ├─ L   (Joy7)                        |  단: Alt/Shift 해제   롱: 창 닫기
-;    ├─ R   (Joy8)                        |  단: Alt + Tab        롱: Shift + Alt + Tab
-;    ├─ L2  (Joy9)                        |  단: Alt 해제         롱: 창 닫기
-;    ├─ R2  (Joy10)                       |  단: Alt + Tab        롱: OSK
-;    ├─ ⊖   (Joy11)                       |  단: Ctrl + Z         롱: Ctrl + S
-;    └─ ⊕   (Joy12)                       |  단: Ctrl + Y         롱: Ctrl + Shift + S
+; 🎮 Gamepad buttons (single / long press)
+;    ├─ A   (Joy1)                        |  Single: Sublime Text     Long: LDPlayer (+ D-PAD)
+;    ├─ B   (Joy2)                        |  Single: Edge Legacy      Long: Edge
+;    ├─ X   (Joy4)                        |  Single: CMD              Long: Terminal
+;    ├─ Y   (Joy5)                        |  Single: OneNote          Long: Ctrl + P
+;    ├─ L   (Joy7)                        |  Single: Release Alt/Shift   Long: Close window
+;    ├─ R   (Joy8)                        |  Single: Alt + Tab        Long: Shift + Alt + Tab
+;    ├─ L2  (Joy9)                        |  Single: Release Alt         Long: Close window
+;    ├─ R2  (Joy10)                       |  Single: Alt + Tab        Long: OSK
+;    ├─ ⊖   (Joy11)                       |  Single: Ctrl + Z         Long: Ctrl + S
+;    └─ ⊕   (Joy12)                       |  Single: Ctrl + Y         Long: Ctrl + Shift + S
 ;
-; 🕹 D-PAD (CheckPOV_A — A버튼 롱프레스로 활성 / Home 버튼으로 비활성 / LDPlayer 전용)
-;    │   ※ LinYuvo KS54 물리 모드 스위치(D-PAD ↔ 아날로그) 양쪽 모두 대응
+; 🕹 D-PAD (CheckPOV_A — activated by long-pressing A / deactivated by Home / LDPlayer only)
+;    │   * Supports both positions of the LinYuvo KS54 physical mode switch (D-PAD ↔ Analog)
 ;    │
-;    ├─ [D-PAD 모드]  POV ↑    |  Alt + ←       |  뒤로가기
-;    ├─ [D-PAD 모드]  POV →    |  Alt + ↑       |  홈
-;    ├─ [D-PAD 모드]  POV ↓    |  Alt + →       |  최근 앱
-;    ├─ [D-PAD 모드]  POV ←    |  Alt + Enter   |  전체화면
+;    ├─ [D-PAD mode]  POV ↑    |  Alt + ←       |  Back
+;    ├─ [D-PAD mode]  POV →    |  Alt + ↑       |  Home
+;    ├─ [D-PAD mode]  POV ↓    |  Alt + →       |  Recent apps
+;    ├─ [D-PAD mode]  POV ←    |  Alt + Enter   |  Fullscreen
 ;    │
-;    ├─ [아날로그 모드] JoyX 0   |  Alt + Enter   |  전체화면
-;    ├─ [아날로그 모드] JoyX 100 |  Alt + ↑       |  홈
-;    ├─ [아날로그 모드] JoyY 0   |  Alt + ←       |  뒤로가기
-;    └─ [아날로그 모드] JoyY 100 |  Alt + →       |  최근 앱
+;    ├─ [Analog mode] JoyX 0   |  Alt + Enter   |  Fullscreen
+;    ├─ [Analog mode] JoyX 100 |  Alt + ↑       |  Home
+;    ├─ [Analog mode] JoyY 0   |  Alt + ←       |  Back
+;    └─ [Analog mode] JoyY 100 |  Alt + →       |  Recent apps
 ; ---------------------------------------------------------------------------
 
 
@@ -69,7 +69,7 @@ Joy1::
         if (A_TickCount - startTime >= 250)
         {
             ;Activate d-pad
-            SetTimer(CheckPOV_C, 0) ;중복금지를 위한 설정
+            SetTimer(CheckPOV_C, 0) ;Prevent duplicate activation
             SetTimer(CheckPOV_A, 30) 
 
             ; --- Long Press ---
