@@ -31,7 +31,7 @@
 ; OBS Studio                    |  U
 ; Close Active App              |  K
 ; ---------------------------------------------------------
-; [Alt + Right Shift + Key] → 관리자 권한 실행
+; [Alt + Right Shift + Key] → Run as administrator
 ; ---------------------------------------------------------
 ; Sublime Text 4 (Admin)        |  S
 ; Terminal (Admin)              |  CapsLock
@@ -42,16 +42,16 @@
 ; OBS Studio (Admin)            |  U
 ; ---------------------------------------------------------
 ; LDPlayer                      |  A
-;  ├─ 비활성 → 활성화
-;  ├─ 미실행 → 실행
-;  └─ 활성 상태에서 재입력 → [일반모드 ⇄ 미니모드+2배] 토글
+;  ├─ Inactive → activate
+;  ├─ Not running → launch
+;  └─ Re-press while active → toggle [Normal mode ⇄ Mini mode + 2x]
 ; ---------------------------------------------------------
 
-; ★ 본인의 .lnk 단축아이콘 폴더 경로로 수정하세요.
+; ★ Set this to your own .lnk shortcuts folder path.
 global ShortcutsDir := "C:\Path\To\Your\Shortcuts"
 
 ; =========================================================
-; 일반 실행 (Alt + Key)
+; Normal launch (Alt + Key)
 ; =========================================================
 
 ; Microsoft Edge Legacy  (Alt + Left Shift)
@@ -181,37 +181,37 @@ global ldplayerMiniW := 0, ldplayerMiniH := 0
         {
             if (!ldplayerMiniExpanded)
             {
-                ; ── [일반모드] → [미니모드 + 미니크기 2배] ──
+                ; ── [Normal mode] → [Mini mode + 2x mini size] ──
 
-                ; 1. 먼저 미니 모드 진입 (Ctrl + F1)
+                ; 1. Enter mini mode first (Ctrl + F1)
                 Send("^{F1}")
 
-                ; 2. 미니 모드 전환 애니메이션이 끝날 때까지 충분히 대기
+                ; 2. Wait long enough for the mini-mode transition animation to finish
                 Sleep(1200)
 
-                ; 3. 미니 모드가 된 "그 상태"의 창 위치/크기 읽기
+                ; 3. Read the window position/size of the resulting mini-mode state
                 WinGetPos(&x, &y, &w, &h, "LDPlayer ahk_exe dnplayer.exe")
                 ldplayerMiniX := x
                 ldplayerMiniY := y
                 ldplayerMiniW := w
                 ldplayerMiniH := h
 
-                ; 4. 그 미니 크기의 2배로 확장
+                ; 4. Expand to 2x that mini size
                 WinMove(x, y, w * 2, h * 2, "LDPlayer ahk_exe dnplayer.exe")
 
                 ldplayerMiniExpanded := true
             }
             else
             {
-                ; ── [미니모드 + 2배] → [일반모드] (정확히 거꾸로) ──
+                ; ── [Mini mode + 2x] → [Normal mode] (exact reverse) ──
 
-                ; 1. 창 크기를 "미니 모드 원본(1배)"으로 축소
+                ; 1. Shrink the window back to "mini mode original (1x)"
                 WinMove(ldplayerMiniX, ldplayerMiniY
                       , ldplayerMiniW, ldplayerMiniH
                       , "LDPlayer ahk_exe dnplayer.exe")
                 Sleep(300)
 
-                ; 2. 미니 모드 해제 (Ctrl + F1)
+                ; 2. Exit mini mode (Ctrl + F1)
                 Send("^{F1}")
                 Sleep(1200)
 
@@ -220,13 +220,13 @@ global ldplayerMiniW := 0, ldplayerMiniH := 0
         }
         else
         {
-            ; ── 비활성 → 활성화만 ──
+            ; ── Inactive → activate only ──
             WinActivate("LDPlayer ahk_exe dnplayer.exe")
         }
     }
     else
     {
-        ; ── 미실행 → 상태 초기화 후 실행 ──
+        ; ── Not running → reset state then launch ──
         ldplayerMiniExpanded := false
         Run(ShortcutsDir "\LDPlayer")
     }
@@ -338,10 +338,10 @@ global ldplayerMiniW := 0, ldplayerMiniH := 0
         WinActivate()
     else
     {
-        ; 관리자 권한 ThrottleStopOBS 작업 트리거
-        Run('schtasks /run /tn ThrottleStopOBS', , 'Hide')
+        ; Trigger the elevated ThrottleStopOBS scheduled task
+        Run("schtasks /run /tn ThrottleStopOBS", , "Hide")
 
-        ; OBS 실행
+        ; Launch OBS
         Run(ShortcutsDir "\OBS Studio")
     }
 }
@@ -355,7 +355,7 @@ global ldplayerMiniW := 0, ldplayerMiniH := 0
 
 
 ; =========================================================
-; 관리자 실행 (Alt + Right Shift + Key)
+; Admin launch (Alt + Right Shift + Key)
 ; =========================================================
 
 ; Sublime Text 4 (Admin)
@@ -375,14 +375,14 @@ global ldplayerMiniW := 0, ldplayerMiniH := 0
 
 
 ; =========================================================
-; 관리자 권한으로 앱 실행 헬퍼
+; App launch with admin privileges helper
 ; =========================================================
 LaunchAsAdmin(appPath) {
     try {
-        ; *RunAs를 사용할 때는 파일 끝에 확장자(.lnk 또는 .exe)가 필수입니다.
+        ; When using *RunAs, the file must include its extension (.lnk or .exe)
         Run('*RunAs "' appPath '"')
     } catch as e {
-        ; 실행 실패 시 화면에 에러 원인을 표시합니다.
-        MsgBox("실행 실패!`n경로: " appPath "`n에러 원인: " e.Message, "관리자 실행 에러")
+        ; Show the error cause on screen if launch fails
+        MsgBox("Launch failed!`nPath: " appPath "`nError: " e.Message, "Admin launch error")
     }
 }
