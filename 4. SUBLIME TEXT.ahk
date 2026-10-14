@@ -2,35 +2,35 @@
 ; ---------------------------------------------------------------------------
 ; [INDEX]
 ; ---------------------------------------------------------------------------
-; 🟦 Sublime Text 전용 (WinActive: sublime_text.exe)
-;    ├─ 연산자 삽입                       |  CapsLock + a / s / x / d / e / w
-;    ├─ 괄호 자동 완성                    |  CapsLock + q / c / z
-;    ├─ 수학 Hotstring                   |  ln, sin, cos, tan, asin, acos, atan,
-;    │                                   |  deg, rad, pr, pi
-;    ├─ 빌드 모드 토글                    |  Shift 2연타
-;    ├─ 빌드 실행                         |  Shift + Enter
-;    ├─ Git Log 열기                      |  Shift + CapsLock
-;    └─ SHOW-COMMIT 커밋 이동             |  ← / →
+; 🟦 Sublime Text only (WinActive: sublime_text.exe)
+;    ├─ Insert operators                   |  CapsLock + a / s / x / d / e / w
+;    ├─ Auto-pair brackets                 |  CapsLock + q / c / z
+;    ├─ Math hotstrings                    |  ln, sin, cos, tan, asin, acos, atan,
+;    │                                     |  deg, rad, pr, pi
+;    ├─ Toggle build mode                  |  Shift double-tap
+;    ├─ Run build                          |  Shift + Enter
+;    ├─ Open Git Log                       |  Shift + CapsLock
+;    └─ SHOW-COMMIT commit navigation      |  ← / →
 ;
-; 🌐 전역 특수문자 (어디서나 입력 가능)
-;    ├─ 그리스 문자                       |  AppsKey + a ~ w
-;    └─ 위/아래 첨자                      |  AppsKey + 0 ~ 9, =, -, (, )
+; 🌐 Global symbols (typeable anywhere)
+;    ├─ Greek letters                      |  AppsKey + a ~ w
+;    └─ Sub/superscripts                   |  AppsKey + 0 ~ 9, =, -, (, )
 ; ---------------------------------------------------------------------------
 
-; --- [Sublime Text 전용 연산자/함수] ---
+; --- [Sublime Text only operators/functions] ---
 global st_caps_count := 0
 
 #HotIf WinActive("ahk_exe sublime_text.exe")
 
-; 1. CapsLock 누를 때 윈도우 기본 기능(LED 번쩍임 및 자동 반복) 완벽 차단
+; 1. Fully block Windows' default CapsLock behavior (LED flash & auto-repeat) on key down
 *CapsLock::return 
 
-; 2. CapsLock을 뗐을 때 딱 한 번만 2연타 여부 검사
+; 2. Check for a double-tap exactly once when CapsLock is released
 *CapsLock Up::{
     static lastTap := 0
     now := A_TickCount
     
-    ; A_PriorKey로 다른 키(a, s 등)와 조합되지 않은 순수 CapsLock 단일 탭인지 확인
+    ; Use A_PriorKey to confirm it's a pure CapsLock single tap (not combined with a, s, etc.)
     if (A_PriorKey = "CapsLock") {
         if (now - lastTap < 300) {
             SetCapsLockState(!GetKeyState("CapsLock", "T"))
@@ -39,12 +39,12 @@ global st_caps_count := 0
             lastTap := now
         }
     } else {
-        lastTap := 0 ; 조합키로 사용되었으면 연타 카운트 강제 초기화
+        lastTap := 0 ; Force-reset the tap counter if used as a combination key
     }
 }
 
 ; ---------------------------------------------------------------------------
-; CapsLock을 물리적으로 누르고 있을 때만 작동하는 단축키
+; Hotkeys active only while CapsLock is physically held down
 ; ---------------------------------------------------------------------------
 #HotIf WinActive("ahk_exe sublime_text.exe") && GetKeyState("CapsLock", "P")
 
@@ -72,7 +72,7 @@ global st_caps_count := 0
 }
 
 ; ---------------------------------------------------------------------------
-; 다시 기존 조건으로 복귀 (이 아래부터는 수학 Hotstring 작동)
+; Revert to the previous condition (math hotstrings work below this line)
 ; ---------------------------------------------------------------------------
 #HotIf WinActive("ahk_exe sublime_text.exe")
 
@@ -131,10 +131,10 @@ global st_caps_count := 0
 }
 
 
-; --- 빌드 모드 (1 = Python_Anaconda, 2 = Java_Run) ---
+; --- Build mode (1 = Python_Anaconda, 2 = Java_Run) ---
 global st_build_mode := 1
 
-; Shift 두 번 연타(Up 기준) → 모드 토글
+; Shift double-tap (on Up) → toggle mode
 ~LShift Up::
 ~RShift Up::
 {
@@ -143,11 +143,11 @@ global st_build_mode := 1
 
     now := A_TickCount
 
-    ; 토글 후 400ms 동안은 무시 (연속 오작동 방지)
+    ; Ignore for 400ms after a toggle (prevents rapid misfires)
     if (now - last_toggle_time < 400)
         return
 
-    ; 280ms 이내에 Shift를 두 번 뗐고, 직전에 눌렀던 키도 Shift일 때만 토글
+    ; Toggle only if Shift was released twice within 280ms and the prior key was also Shift
     if (now - last_up_time < 280 && InStr(A_PriorKey, "Shift"))
     {
         global st_build_mode
@@ -158,7 +158,7 @@ global st_build_mode := 1
         SetTimer(() => ToolTip(), -1300)
 
         last_toggle_time := now
-        last_up_time := 0          ; 3연타 방지
+        last_up_time := 0          ; Prevent triple-tap misfires
     }
     else
     {
@@ -167,7 +167,7 @@ global st_build_mode := 1
 }
 
 
-; Shift + Enter → 현재 모드로 빌드
+; Shift + Enter → build in the current mode
 +Enter::
 {
     global st_build_mode
@@ -178,28 +178,28 @@ global st_build_mode := 1
         SendInput "^+2"      ; Java_Run
 }
 
-; Shift + CapsLock → Git Log 열기 (gs_log)
+; Shift + CapsLock → open Git Log (gs_log)
 +CapsLock::
 {
-    SendInput "^+3"          ; Ctrl + Alt + 3
+    SendInput "^+3"          ; Ctrl + Shift + 3
 }
 
 #HotIf
 
-; SHOW-COMMIT 창에서 좌우 방향키로 이전/다음 커밋 이동 (p / n 대체)
+; In the SHOW-COMMIT view, use Left/Right to move to the previous/next commit (replaces p / n)
 #HotIf WinActive("SHOW-COMMIT ahk_exe sublime_text.exe")
 
 Left::SendInput("p")
 Right::SendInput("n")
 
-#HotIf ; 조건 해제 (이 아래부터는 다시 전역 설정으로 복귀)
+#HotIf ; Reset condition (everything below is global again)
 
 
 ; ---------------------------------------------------------------
-; 🌐 [전역 특수문자 / 그리스 문자 / 위아래 첨자] (어디서나 입력 가능)
+; 🌐 [Global symbols / Greek letters / sub-superscripts] (typeable anywhere)
 ; ---------------------------------------------------------------
 
-; --- [그리스 문자] ---
+; --- [Greek letters] ---
 AppsKey & a:: Send(GetKeyState("Shift", "P") ? "{U+0391}" : "{U+03B1}") ; α Α
 AppsKey & b:: Send(GetKeyState("Shift", "P") ? "{U+0392}" : "{U+03B2}") ; β Β
 AppsKey & g:: Send(GetKeyState("Shift", "P") ? "{U+0393}" : "{U+03B3}") ; γ Γ
@@ -226,7 +226,7 @@ AppsKey & x:: Send(GetKeyState("Shift", "P") ? "{U+03A7}" : "{U+03C7}") ; χ Χ
 AppsKey & v:: Send(GetKeyState("Shift", "P") ? "{U+03A8}" : "{U+03C8}") ; ψ Ψ
 AppsKey & w:: Send(GetKeyState("Shift", "P") ? "{U+03A9}" : "{U+03C9}") ; ω Ω
 
-; --- [위/아래 첨자] ---
+; --- [Sub/superscripts] ---
 AppsKey & 1:: Send(GetKeyState("Shift", "P") ? "{U+00B9}" : "{U+2081}") ; ₁ ¹
 AppsKey & 2:: Send(GetKeyState("Shift", "P") ? "{U+00B2}" : "{U+2082}") ; ₂ ²
 AppsKey & 3:: Send(GetKeyState("Shift", "P") ? "{U+00B3}" : "{U+2083}") ; ₃ ³
