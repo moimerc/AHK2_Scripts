@@ -4,7 +4,7 @@ import subprocess
 import os
 from datetime import datetime
 
-# 수동 커밋 진행 중일 때 자동 커밋을 막기 위한 플래그
+# Flag to prevent auto-commit while a manual commit is in progress
 _custom_commit_in_progress = False
 
 class GitAutoCommitOnSave(sublime_plugin.EventListener):
@@ -17,10 +17,10 @@ class GitAutoCommitOnSave(sublime_plugin.EventListener):
         if not file_path:
             return
 
-        # 현재 저장된 파일이 속한 폴더 찾기
+        # Find the folder containing the currently saved file
         folder_path = os.path.dirname(file_path)
         
-        # 파일 경로를 역추적하여 가장 가까운 .git 폴더가 있는 루트 디렉토리 찾기
+        # Walk up the directory tree to find the nearest root containing a .git folder
         git_root = folder_path
         while git_root and git_root != os.path.dirname(git_root):
             if os.path.exists(os.path.join(git_root, ".git")):
@@ -85,7 +85,7 @@ class GitCustomCommitCommand(sublime_plugin.TextCommand):
         folder_path = os.path.dirname(file_path)
         file_name = os.path.basename(file_path)
 
-        # 현재 저장된 파일 경로를 역추적하여 가장 가까운 .git 및 .gitignore가 있는 폴더 찾기
+        # Walk up from the currently saved file path to find the nearest folder containing both .git and .gitignore
         git_root = folder_path
         while git_root and git_root != os.path.dirname(git_root):
             if os.path.exists(os.path.join(git_root, ".git")):
@@ -93,7 +93,7 @@ class GitCustomCommitCommand(sublime_plugin.TextCommand):
             git_root = os.path.dirname(git_root)
 
         # ---------------------------------------------------------
-        # [.gitignore 자동 예외 규칙 추가 로직]
+        # [Auto-add .gitignore exception rule]
         # ---------------------------------------------------------
         gitignore_path = os.path.join(git_root, ".gitignore")
         rule = f"!{file_name}"
@@ -103,7 +103,7 @@ class GitCustomCommitCommand(sublime_plugin.TextCommand):
                 with open(gitignore_path, "r", encoding="utf-8") as f:
                     lines = [line.strip() for line in f.readlines()]
                 
-                # 중복 등록 방지: .gitignore 안에 !파일명 이 없을 때만 추가
+                # Prevent duplicates: only add if !filename is not already present
                 if rule not in lines:
                     with open(gitignore_path, "a", encoding="utf-8") as f:
                         f.write(f"\n{rule}")
