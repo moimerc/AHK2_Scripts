@@ -4,19 +4,19 @@
 obsExe := "obs64.exe"
 throttleExe := "ThrottleStop.exe"
 
-; 1. 폴링 없이 OBS가 실행될 때까지 OS 단에서 대기 (CPU 점유율 0%)
+; 1. Wait at the OS level until OBS starts - no polling (0% CPU usage)
 ProcessWait(obsExe)
 
-; 프로필 1 (Elgato)로 전환
+; Switch to profile 1 (Elgato)
 SwitchThrottleStop("1")
 
-; 2. 폴링 없이 OBS가 종료될 때까지 OS 단에서 대기 (CPU 점유율 0%)
+; 2. Wait at the OS level until OBS exits - no polling (0% CPU usage)
 ProcessWaitClose(obsExe)
 
-; 프로필 2 (Balanced)로 복귀
+; Revert to profile 2 (Balanced)
 SwitchThrottleStop("2")
 
-; 스크립트 종료
+; Exit the script
 ExitApp
 
 SwitchThrottleStop(profile) {
@@ -25,7 +25,7 @@ SwitchThrottleStop(profile) {
 
     key := (profile = "1") ? "1" : "2"
 
-    ; 각 키를 100ms씩 유지 (기존 코드 유지)
+    ; Hold each key for 100ms (unchanged from original)
     SendInput "{Ctrl down}"
     Sleep 100
     SendInput "{Alt down}"
