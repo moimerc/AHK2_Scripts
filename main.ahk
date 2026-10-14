@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0
 DetectHiddenWindows true
-InstallKeybdHook()  ; AHK가 키보드 물리적 상태를 더 강하게 추적하도록 강제
-A_HotkeyModifierTimeout := 100  ; 모디파이어 키 복원 대기 시간을 50ms에서 100ms로 늘려 꼬임 방지
+InstallKeybdHook()  ; Force AHK to more strongly track the physical keyboard state
+A_HotkeyModifierTimeout := 100  ; Increase modifier restore delay from 50ms to 100ms to prevent stuck keys
 
 ; ─────────────────────────────────────────────────────────────────────────
-; EveryHangul 기능을 사용하려면 아래 두 가지를 진행하세요:
-;   1. EveryHangul.ahk 파일을 이 스크립트(main.ahk)와 같은 폴더에 다운로드
+; To use the EveryHangul feature, do the following:
+;   1. Download EveryHangul.ahk and place it in the same folder as this script (main.ahk)
 ;      (https://github.com/devPnal/every-hangul-v2)
-;   2. 아래 #Include 줄과 1. SYSTEM SHELL.ahk의 global hangul, ~LAlt & RAlt:: 주석을 모두 해제
+;   2. Uncomment the #Include line below, plus the global hangul and ~LAlt & RAlt:: lines in 1. SYSTEM SHELL.ahk
 ; ─────────────────────────────────────────────────────────────────────────
 
 ; #Include EveryHangul.ahk
