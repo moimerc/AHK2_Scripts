@@ -350,7 +350,7 @@ global ldplayerMiniW := 0, ldplayerMiniH := 0
 !k::
 {
     if WinExist("A")
-        WinClose
+        WinClose()
 }
 
 
