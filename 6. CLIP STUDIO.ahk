@@ -213,7 +213,7 @@ Joy5::
         if (A_TickCount - startTime >= 250)
         {
             ;--- Long Press ---
-            SetTimer(CheckPOV_A, 0) ;중복금지
+            SetTimer(CheckPOV_A, 0) ;Prevent duplicate activation
             SetTimer(CheckPOV_C, 30)
 
             TapCount := 0
