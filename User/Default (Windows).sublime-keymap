@@ -1,0 +1,8 @@
+[
+	{ "keys": ["ctrl+left"], "command": "prev_view" },
+	{ "keys": ["ctrl+right"], "command": "next_view" },
+	{ "keys": ["ctrl+shift+c"], "command": "git_custom_commit" },
+    { "keys": ["ctrl+shift+1"], "command": "build", "args": {"build_system": "Packages/User/Python_Anaconda.sublime-build"} },
+    { "keys": ["ctrl+shift+2"], "command": "build", "args": {"build_system": "Packages/User/Java_Run.sublime-build"} },
+    { "keys": ["ctrl+shift+3"], "command": "gs_log" }
+]	
