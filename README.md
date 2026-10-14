@@ -1,7 +1,7 @@
 # AHK2_Scripts
 
 ## Overview
-A modular AutoHotkey v2 automation and environment control system for Windows 10. A central entry script (`main.ahk`) loads six domain-specific modules plus two auxiliary helpers: an asynchronous Wi-Fi/Bluetooth toggle (`RadioToggle.ps1`) and a background daemon that links OBS Studio to ThrottleStop profiles (`ThrottleStopOBS.ahk`). The repository also includes a Sublime Text plugin (`GitAutoCommit.py`) and pre-configured Sublime Text settings in the `User/` folder.
+A modular AutoHotkey v2 automation and environment control system for Windows 10. A central entry script (`main.ahk`) loads six domain-specific modules and two auxiliary helpers: an asynchronous Wi-Fi/Bluetooth toggle (`RadioToggle.ps1`) and a background daemon that links OBS Studio to ThrottleStop profiles (`ThrottleStopOBS.ahk`). The repository also includes a Sublime Text plugin (`GitAutoCommit.py`) and pre-configured Sublime Text settings in the `User/` folder.
 
 ## File Structure
 ```text
@@ -201,7 +201,7 @@ or the path shown by `Preferences → Browse Packages...`.
 5. **Conditions**  
    ![Conditions](Assets/5.png)  
    ![Conditions 2](Assets/6.png)  
-   - Wake the computer to run this task (recommended)
+   - Leave all options unchecked.
 
 6. **Settings**  
    ![Settings](Assets/7.png)  
