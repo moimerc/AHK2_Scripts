@@ -225,14 +225,14 @@ Joy8::
         if (A_TickCount - startTime >= 250)
         {
             ; --- Long Press ---
-            SendInput('{Shift down}{Alt down}{Tab}')
+            SendInput("{Shift down}{Alt down}{Tab}")
             return
         }
         Sleep 20
     }
 
     ; --- Single Press ---
-    SendInput('{Shift up}{Alt down}{Tab}')
+    SendInput("{Shift up}{Alt down}{Tab}")
 }
 
 
@@ -282,7 +282,7 @@ Joy10::
     }
 
     ; --- Single Press ---
-    SendInput('{Alt down}{Tab}') 
+    SendInput("{Alt down}{Tab}") 
 }
 
 
@@ -295,14 +295,14 @@ Joy11::
         if (A_TickCount - startTime >= 250)
         {
             ; --- Long Press ---
-            SendInput('{Ctrl down}{s}{Ctrl up}')
+            SendInput("{Ctrl down}{s}{Ctrl up}")
             return
         }
         Sleep 20
     }
 
     ; --- Single Press ---
-    SendInput('{Ctrl down}{z}{Ctrl up}')
+    SendInput("{Ctrl down}{z}{Ctrl up}")
 }
 
 
@@ -315,14 +315,14 @@ Joy12::
         if (A_TickCount - startTime >= 250)
         {
             ; --- Long Press ---
-            SendInput('{Ctrl down}{Shift down}{s}{Shift up}{Ctrl up}')
+            SendInput("{Ctrl down}{Shift down}{s}{Shift up}{Ctrl up}")
             return
         }
         Sleep 20
     }
 
     ; --- Single Press ---
-    SendInput('{Ctrl down}{y}{Ctrl up}')
+    SendInput("{Ctrl down}{y}{Ctrl up}")
 }
 
 
@@ -340,28 +340,28 @@ CheckPOV_A()
         ; ↑ BUTTON  
         if (pov = 0) 
         {
-            SendInput('{Alt down}{Left}{Alt up}')  
+            SendInput("{Alt down}{Left}{Alt up}")  
         }
 
 
         ; → BUTTON
         else if (pov = 9000)
         {
-            SendInput('{Alt down}{Up}{Alt up}')
+            SendInput("{Alt down}{Up}{Alt up}")
         }
 
 
         ; ↓ BUTTON
         else if (pov = 18000)
         {
-            SendInput('{Alt down}{Right}{Alt up}')
+            SendInput("{Alt down}{Right}{Alt up}")
         }
 
 
         ; ← BUTTON
         else if (pov = 27000)
         {
-            SendInput('{Alt down}{Enter}{Alt up}')
+            SendInput("{Alt down}{Enter}{Alt up}")
         }
         prevPOV_A := pov
     }
@@ -373,12 +373,12 @@ CheckPOV_A()
         ; ← BUTTON
         if (x = 0)
         {
-            SendInput('{Alt down}{Enter}{Alt up}')
+            SendInput("{Alt down}{Enter}{Alt up}")
         } 
         ;→ BUTTON
         else if (x = 100)
         {
-            SendInput('{Alt down}{Up}{Alt up}')
+            SendInput("{Alt down}{Up}{Alt up}")
         }
         prevX_A := x
     }
@@ -388,12 +388,12 @@ CheckPOV_A()
         ; ↑ BUTTON
         if (y = 0) 
         {
-            SendInput('{Alt down}{Left}{Alt up}')
+            SendInput("{Alt down}{Left}{Alt up}")
         } 
         ; ↓ BUTTON
         else if (y = 100) 
         {
-            SendInput('{Alt down}{Right}{Alt up}')
+            SendInput("{Alt down}{Right}{Alt up}")
         }
         prevY_A := y
     }
