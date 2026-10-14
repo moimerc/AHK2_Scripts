@@ -2,66 +2,66 @@
 ; ---------------------------------------------------------------------------
 ; [INDEX]
 ; ---------------------------------------------------------------------------
-; ⬜ 전역 기본 단축키
-;    ├─ 파일 이름 변경 (F2)             |  Ctrl + R
-;    ├─ 다시 실행 (Redo)                |  Ctrl + Shift + Z
-;    └─ 캡처 도구 (ms-screenclip)       |  PrtScn
+; ⬜ Global Basics
+;    ├─ Rename file (F2)                |  Ctrl + R
+;    ├─ Redo                            |  Ctrl + Shift + Z
+;    └─ Snipping Tool (ms-screenclip)   |  PrtScn
 ;
-; 🟦 한/영 오타 양방향 즉시 교정        |  LAlt + RAlt
-; 🟪 괄호 및 루비 텍스트 제거 (전체선택) |  LCtrl + AppsKey
-; 🟧 긴급 키 고정 해제 및 탐색기 재시작  |  Shift + Esc
+; 🟦 Bidirectional Korean/English Typo Converter |  LAlt + RAlt
+; 🟪 Parenthesis / Ruby Text Remover (with selection) |  LCtrl + AppsKey
+; 🟧 Emergency Key-Unstick & Explorer Restart    |  Shift + Esc
 ;
-; 🔲 공통 레이아웃 판별 함수            |  IsJapaneseLayout, IsKoreanLayout 등
+; 🔲 Shared Layout Detection Functions           |  IsJapaneseLayout, IsKoreanLayout, etc.
 ;
-; 🟥 일본어 레이아웃 전용 핫키
-;    ├─ 일/영 전환                      |  AppsKey + RAlt
-;    ├─ 히라가나 전환                   |  RAlt
-;    └─ 카타카나 전환                   |  AppsKey
+; 🟥 Japanese Layout Hotkeys
+;    ├─ JP/EN toggle                    |  AppsKey + RAlt
+;    ├─ Hiragana toggle                 |  RAlt
+;    └─ Katakana toggle                 |  AppsKey
 ;
-; 🟩 한국어 레이아웃 전용 핫키
-;    ├─ 한/영 전환                      |  RAlt
-;    └─ 한자 입력                       |  AppsKey
+; 🟩 Korean Layout Hotkeys
+;    ├─ KO/EN toggle                    |  RAlt
+;    └─ Hanja input                     |  AppsKey
 ;
-; 🟨 터미널 & CMD 전용 단축키
-;    ├─ 탭 이전/다음 이동               |  Ctrl + Left / Right
-;    ├─ 파이썬 & 자바 코드 빌드         |  CapsLock 연타 (+ ExecuteCapsAction)
-;    └─ Conda Venv 활성화              |  Ctrl + Alt + LWin
+; 🟨 Terminal & CMD Hotkeys
+;    ├─ Previous / next tab             |  Ctrl + Left / Right
+;    ├─ Python & Java build             |  CapsLock multi-tap (+ ExecuteCapsAction)
+;    └─ Activate Conda venv             |  Ctrl + Alt + LWin
 ;
-; ⬛ 브라우저 전용 단축키
-;    └─ 탭 이전/다음 이동               |  Ctrl + Left / Right
+; ⬛ Browser Hotkeys
+;    └─ Previous / next tab             |  Ctrl + Left / Right
 ;
-; 🟫 윈도우 탐색기 전용 단축키 (RClone 스태시 엔진)
-;    ├─ 스태시 파일명 복사              |  CapsLock 1회
-;    ├─ 스태시 경로 저장 & RClone 실행  |  CapsLock 2회
-;    └─ 내부 함수                      |  ExecuteExplorerCapsAction
+; 🟫 Explorer Hotkeys (RClone Stash Engine)
+;    ├─ Copy stashed filename           |  CapsLock 1 tap
+;    ├─ Stash path & run RClone         |  CapsLock 2 taps
+;    └─ Internal function               |  ExecuteExplorerCapsAction
 ;
-; ⏰ 절전 방지 타이머 (Caffeine 대체)  |  Alt + Space
-;    ├─ 입력 있음   : 지정 시간 후 자동 해제
-;    ├─ 빈 값 / 0   : 무기한 활성 (Override: active)
-;    └─ 트레이 툴팁 : 60초마다 갱신
+; ⏰ Keep-Awake Timer (Caffeine alternative) |  Alt + Space
+;    ├─ With input   : auto-release after set time
+;    ├─ Empty / 0    : indefinite (Override: active)
+;    └─ Tray tooltip : refreshed every 60s
 ;
-; 🟣 음소거 & Auto-Mute 제어
-;    ├─ 네이티브 음소거 & Auto-Mute 토글 |  Volume_Mute
-;    └─ 장치 변경 감지 (Auto-Mute 부속)  |  CheckAudioDeviceChange (내부)
+; 🟣 Mute & Auto-Mute Control
+;    ├─ Native mute & Auto-Mute toggle  |  Volume_Mute
+;    └─ Device change detection (Auto-Mute sub) | CheckAudioDeviceChange (internal)
 ;
-; 🟢 WiFi 토글 (Volume Up)              |  Volume_Up
-; 🔵 Bluetooth 토글 (Volume Down)       |  Volume_Down
+; 🟢 WiFi toggle (Volume Up)             |  Volume_Up
+; 🔵 Bluetooth toggle (Volume Down)      |  Volume_Down
 ; ---------------------------------------------------------------------------
 ;
 SetKeyDelay(40, 40)
 
-; --- [전역 변수 및 객체 초기화] ---
-; EveryHangul 기능을 사용하려면 아래 두 가지를 진행하세요:
-;   1. EveryHangul.ahk 파일을 main.ahk와 같은 폴더에 다운로드
-;   2. 아래 주석을 해제 (main.ahk의 #Include EveryHangul.ahk도 함께 해제)
+; --- [Global variables & object initialization] ---
+; To use the EveryHangul feature, do the following:
+;   1. Download EveryHangul.ahk and place it next to main.ahk
+;   2. Uncomment the two lines below (and the #Include line in main.ahk)
 ; global hangul := EveryHangul()
 global caps_count := 0
 global explorer_caps_count := 0
 global CompareQueue := []
-global WorkDir := "C:\Path\To\Your\Workspace"  ; <-- 본인의 워크스페이스 경로로 수정하세요
+global WorkDir := "C:\Path\To\Your\Workspace"  ; <-- set this to your workspace path
 
 ; ---------------------------------------------------------------------------
-; ⬜ 전역 기본 단축키
+; ⬜ Global Basics
 ; ---------------------------------------------------------------------------
 
 ; Ctrl + R → F2 (Rename)
@@ -70,7 +70,7 @@ global WorkDir := "C:\Path\To\Your\Workspace"  ; <-- 본인의 워크스페이�
 ; Ctrl + Shift + Z → Ctrl + Y (Redo)
 ^+z::Send("^y")
 
-; PrtScn 누르면 캡처 도구 프로토콜 직접 실행
+; PrtScn → launch Snipping Tool protocol directly
 $PrintScreen::
 {
     Run("ms-screenclip:")
@@ -78,26 +78,26 @@ $PrintScreen::
 
 
 ; ---------------------------------------------------------------------------
-; 🟦 한/영 오타 양방향 교정 (LAlt -> RAlt 순서 필수)
-;    ※ 사용하려면 main.ahk 및 상단의 EveryHangul 관련 주석을 해제하세요.
+; 🟦 Bidirectional Korean/English Typo Converter (LAlt -> RAlt order required)
+;    * To enable: uncomment the block below and the EveryHangul lines above + in main.ahk
 ; ---------------------------------------------------------------------------
 /*
 ~LAlt & RAlt::
 {
-    ; 1. 물리적 키 해제 대기 (Alt 고정 원천 차단)
+    ; 1. Wait for physical key release (prevents stuck Alt)
     KeyWait "LAlt"
     KeyWait "RAlt"
     Sleep(15)
 
-    ; 2. 클립보드 백업 (텍스트만 → 매우 빠름)
+    ; 2. Backup clipboard (text only -> very fast)
     savedClipboard := A_Clipboard
     A_Clipboard := ""
 
-    ; 3. 현재 선택 영역 확인
+    ; 3. Check current selection
     SendInput("^c")
     ClipWait(0.03)
 
-    ; 4. 선택 없음 OR 라인 카피(Sublime 등) → 단어 선택 폴백
+    ; 4. No selection OR line copy (Sublime, etc.) -> word-select fallback
     if (A_Clipboard = "" || InStr(A_Clipboard, "`n")) {
         A_Clipboard := ""
         SendInput("^+{Left}^c")
@@ -110,23 +110,23 @@ $PrintScreen::
     original := A_Clipboard
 
     try {
-        ; 5. 방향 자동 감지
+        ; 5. Auto-detect direction
         if (RegExMatch(original, "[가-힣ㄱ-ㅎㅏ-ㅣ]"))
             converted := hangul.EngKey(original)
         else
             converted := hangul.KorKey(original)
 
-        ; 6. IME를 먼저 원하는 상태로 (붙여넣기 후 재변환 방지)
+        ; 6. Set IME to desired state first (prevents re-conversion after paste)
         SendInput("{vk15}")
         Sleep(15)
 
-        ; 7. 선택 영역 삭제 후 텍스트 입력
+        ; 7. Delete selection then insert text
         SendInput("{BackSpace}")
         Sleep(5)
         SendText(converted)
     }
 
-    ; 8. 클립보드 복구
+    ; 8. Restore clipboard
     Sleep(10)
     A_Clipboard := savedClipboard
 }
@@ -134,16 +134,16 @@ $PrintScreen::
 
 
 ; ---------------------------------------------------------------------------
-; 🟪 괄호 및 루비 텍스트 즉시 제거 (텍스트 전체선택)
+; 🟪 Parenthesis / Ruby Text Remover (with selection)
 ; ---------------------------------------------------------------------------
 
 ~LCtrl & AppsKey::
 {
-    ; 1. 기존 클립보드 백업
+    ; 1. Backup existing clipboard
     savedClipboard := ClipboardAll()
     A_Clipboard := ""
 
-    ; 2. 선택된 텍스트 복사
+    ; 2. Copy selected text
     Send("^c")
     if !ClipWait(0.2) {
         A_Clipboard := savedClipboard
@@ -152,67 +152,67 @@ $PrintScreen::
 
     original := A_Clipboard
 
-    ; 3. 괄호와 그 안의 텍스트 제거
+    ; 3. Remove parentheses and their contents
     converted := RegExReplace(original, "[(（][^)）]*[)）]", "")
 
-    ; 4. 변환된 텍스트로 선택 영역 대체
+    ; 4. Replace selection with converted text
     A_Clipboard := converted
     Send("^v")
 
-    ; 5. 기존 클립보드 복구
+    ; 5. Restore existing clipboard
     Sleep(50)
     A_Clipboard := savedClipboard
 }
 
 
 ; ---------------------------------------------------------------------------
-; 🟧 긴급 키 고정 해제 및 탐색기 재시작 (전역)
+; 🟧 Emergency Key-Unstick & Explorer Restart (global)
 ; ---------------------------------------------------------------------------
 
-; * (와일드카드)를 붙여서 다른 키가 고정(Stuck)된 상태라도 무조건 작동하도록 강제함
+; * (wildcard) so it always works even if other keys are stuck
 *+Esc::
 {
-    ; 1. 사용자가 물리적으로 Ctrl 키를 같이 눌렀다면 작업 관리자를 직접 실행하고 종료
+    ; 1. If the user physically pressed Ctrl too, launch Task Manager directly and exit
     if GetKeyState("Ctrl", "P")
     {
         Run("taskmgr.exe")
         return
     }
 
-    ; 2. 그 외의 경우 (순수하게 Shift + Esc만 눌렀거나 Alt 등이 꼬였을 때) 강제 해제 진행
+    ; 2. Otherwise (pure Shift+Esc, or Alt etc. stuck), force-release
     Send "{Blind}{LControl Up}{RControl Up}{LAlt Up}{RAlt Up}{LWin Up}{RWin Up}{Shift Up}"
     SetCapsLockState("Off")
     RunWait("taskkill /f /im explorer.exe", , "Hide")
     Run("explorer.exe")
-    MsgBox "모든 키 고정을 해제하고 탐색기(explorer.exe)를 재시작했습니다."
+    MsgBox "All key states have been released and Explorer (explorer.exe) has been restarted."
 }
 
 
 ; ---------------------------------------------------------------------------
-; 🔲 공통 레이아웃 함수
+; 🔲 Shared Layout Functions
 ; ---------------------------------------------------------------------------
 
 IsJapaneseLayout() {
     langId := GetInputLangID()
-    Return (langId = "0x411") ; 일본어
+    Return (langId = "0x411") ; Japanese
 }
 
 IsKoreanLayout() {
     langId := GetInputLangID()
-    Return (langId = "0x412") ; 한국어
+    Return (langId = "0x412") ; Korean
 }
 
 
 GetInputLangID(hWnd := "") {
     if (!hWnd) {
-        ; 1. 단순히 활성 창이 아니라, 현재 키보드 포커스가 있는 실제 창(컨트롤)을 찾음
+        ; 1. Not just the active window - find the actual focused window/control
         hWnd := WinActive("A")
         
-        ; UWP 앱인 경우, 더 깊숙한 곳의 포커스 핸들을 가져와야 즉시 갱신됨
+        ; For UWP apps, must fetch the deeper focus handle for immediate refresh
         if WinGetProcessName(hWnd) = "ApplicationFrameHost.exe" {
             static stGTI := Buffer(24 + 6 * A_PtrSize, 0)
             NumPut("UInt", stGTI.Size, stGTI)
-            ; GetGUIThreadInfo를 통해 현재 스레드의 실제 포커스 핸들을 획득
+            ; Fetch the actual focus handle of the current thread via GetGUIThreadInfo
             if DllCall("GetGUIThreadInfo", "UInt", 0, "Ptr", stGTI) {
                 hwndFocus := NumGet(stGTI, 8 + A_PtrSize, "Ptr")
                 if hwndFocus
@@ -221,10 +221,10 @@ GetInputLangID(hWnd := "") {
         }
     }
 
-    ; 2. IME 핸들 가져오기 (가장 정확한 레이아웃 판별법)
+    ; 2. Get IME handle (most accurate layout detection)
     imeHwnd := DllCall("imm32\ImmGetDefaultIMEWnd", "Ptr", hWnd, "Ptr")
     
-    ; IME 핸들이 있으면 해당 핸들의 스레드에서 레이아웃 추출
+    ; If IME handle exists, extract layout from its thread
     targetHwnd := imeHwnd ? imeHwnd : hWnd
     threadId := DllCall('GetWindowThreadProcessId', 'Ptr', targetHwnd, 'UInt', 0)
     lyt := DllCall('GetKeyboardLayout', 'Ptr', threadId, 'UInt')
@@ -234,61 +234,61 @@ GetInputLangID(hWnd := "") {
 
 
 ; ---------------------------------------------------------------------------
-; 🟥 일본어 레이아웃 전용 핫키
+; 🟥 Japanese Layout Hotkeys
 ; ---------------------------------------------------------------------------
 
 #HotIf IsJapaneseLayout()
 
-; AppsKey + RAlt → Alt + ` (일/영 전환)
+; AppsKey + RAlt → Alt + ` (JP/EN toggle)
 AppsKey & RAlt::SendEvent("!{vkC0}")
 
-; RAlt → Ctrl + Caps (히라가나 전환)
+; RAlt → Ctrl + Caps (Hiragana toggle)
 *RAlt::
 {
     SendEvent("^{CapsLock}")
 }
 
-; AppsKey → Alt + Caps (카타카나 전환)
+; AppsKey → Alt + Caps (Katakana toggle)
 *AppsKey::
 {
     SendEvent("!{CapsLock}")
 }
 
-#HotIf  ; 조건 초기화
+#HotIf  ; reset condition
 
 
 ; ---------------------------------------------------------------------------
-; 🟩 한국어 레이아웃 전용 핫키
+; 🟩 Korean Layout Hotkeys
 ; ---------------------------------------------------------------------------
 
 #HotIf IsKoreanLayout()
 
-; RAlt → Shift + Space (한/영 전환)
+; RAlt → Shift + Space (KO/EN toggle)
 *RAlt::
 {
     SendEvent("{vk15}")
 }
 
-; AppsKey → Ctrl + Space (한자 입력)
+; AppsKey → Ctrl + Space (Hanja input)
 *AppsKey::
 {
     SendEvent("{vk19}")
 }
 
-#HotIf  ; 조건 초기화
+#HotIf  ; reset condition
 
 
 ; ---------------------------------------------------------------------------
-; 🟨 터미널 & CMD 전용 단축키
+; 🟨 Terminal & CMD Hotkeys
 ; ---------------------------------------------------------------------------
 
 #HotIf WinActive("ahk_exe WindowsTerminal.exe") or WinActive("ahk_exe cmd.exe")
 
-; Alt + 좌/우 방향키 → 이전 탭 / 다음 탭으로 이동
+; Ctrl + Left/Right → previous / next tab
 ^Left::Send("^+{Tab}")
 ^Right::Send("^{Tab}")
 
-; CapsLock 연타 (1: python, 2: java, 3: javac)
+; CapsLock multi-tap (1: python, 2: java, 3: javac)
 CapsLock::
 {
     global caps_count
@@ -303,38 +303,38 @@ CapsLock::
 
 
 ; ---------------------------------------------------------------------------
-; 🟨 ExecuteCapsAction (터미널 CapsLock 연타 전용 함수)
+; 🟨 ExecuteCapsAction (terminal CapsLock multi-tap helper)
 ; ---------------------------------------------------------------------------
 ExecuteCapsAction()
 {
     global caps_count
     
-    if (caps_count == 1)      ; 1번 툭
+    if (caps_count == 1)      ; 1 tap
     {
         SendText "python .py"
         Send "{Left 3}"
     }
-    else if (caps_count == 2) ; 2번 연타
+    else if (caps_count == 2) ; 2 taps
     {
         SendText "java "
     }
-    else if (caps_count >= 3) ; 3번 이상 연타
+    else if (caps_count >= 3) ; 3+ taps
     {
         SendText "javac .java"
         Send "{Left 5}"
     }
     
-    caps_count := 0 ; 카운트 초기화
+    caps_count := 0 ; reset count
 }
 
 
 ; ---------------------------------------------------------------------------
-; ⬛ 브라우저 전용 단축키
+; ⬛ Browser Hotkeys
 ; ---------------------------------------------------------------------------
 
 #HotIf WinActive("ahk_class Chrome_WidgetWin_1") or WinActive("Edge ahk_exe ApplicationFrameHost.exe")
 
-; Ctrl + 좌/우 방향키 → 이전 탭 / 다음 탭으로 이동
+; Ctrl + Left/Right → previous / next tab
 ^Left::Send("^+{Tab}")
 ^Right::Send("^{Tab}")
 
@@ -342,12 +342,12 @@ ExecuteCapsAction()
 
 
 ; ---------------------------------------------------------------------------
-; 🟫 윈도우 탐색기 전용 단축키 (RClone 스태시 엔진)
+; 🟫 Explorer Hotkeys (RClone Stash Engine)
 ; ---------------------------------------------------------------------------
 
 #HotIf WinActive("ahk_exe explorer.exe")
 
-; CapsLock 1번(스태시 비우기 및 파일명 복사) / 2번(경로 스태시 및 RClone 실행)
+; CapsLock 1 tap (clear stash & copy filename) / 2 taps (stash path & run RClone)
 CapsLock::
 {
     global explorer_caps_count
@@ -359,7 +359,7 @@ CapsLock::
 
 
 ; ---------------------------------------------------------------------------
-; 🟫 ExecuteExplorerCapsAction (탐색기 CapsLock 연타 전용 함수)
+; 🟫 ExecuteExplorerCapsAction (Explorer CapsLock multi-tap helper)
 ; ---------------------------------------------------------------------------
 ExecuteExplorerCapsAction()
 {
@@ -367,7 +367,7 @@ ExecuteExplorerCapsAction()
 
     if (explorer_caps_count == 1)
     {
-        ; 1번 연타: 큐(스태시) 초기화 후 확장자 제외 파일명 복사
+        ; 1 tap: reset queue (stash) then copy filename without extension
         CompareQueue := []
 
         oldClip := ClipboardAll()
@@ -380,7 +380,7 @@ ExecuteExplorerCapsAction()
             SplitPath targetPath, , , , &nameNoExt
             A_Clipboard := nameNoExt
             
-            ToolTip "복사 완료: " nameNoExt
+            ToolTip "Copy complete: " nameNoExt
             SetTimer () => ToolTip(), -1200
         }
         else
@@ -391,25 +391,25 @@ ExecuteExplorerCapsAction()
     }
     else if (explorer_caps_count >= 2)
     {
-        ; 2번 연타: 경로 복사 후 CompareQueue 추가
+        ; 2 taps: copy path and push to CompareQueue
         oldClip := ClipboardAll()
         A_Clipboard := ""
         Send "^c"
 
         if ClipWait(0.3)
         {
-            ; 클립보드 문자열 추출 및 쌍따옴표 제거
+            ; Extract clipboard string and strip double quotes
             targetPath := StrSplit(A_Clipboard, "`n", "`r")[1]
             targetPath := StrReplace(targetPath, '"', "")
             
-            ; 쌍따옴표가 제거된 순수 경로를 클립보드에 다시 덮어쓰기
+            ; Overwrite clipboard with the pure path (no quotes)
             A_Clipboard := targetPath
             
             CompareQueue.Push(targetPath)
 
             if (CompareQueue.Length == 1)
             {
-                ToolTip "경로 1 저장 완료: " targetPath
+                ToolTip "Path 1 saved: " targetPath
                 SetTimer () => ToolTip(), -1500
             }
             else if (CompareQueue.Length == 2)
@@ -418,7 +418,7 @@ ExecuteExplorerCapsAction()
                 path2 := CompareQueue[2]
                 CompareQueue := []
 
-                ; 폴더/파일 속성 정밀 감별
+                ; Precisely distinguish folder/file types
                 isDir1 := DirExist(path1) != ""
                 isDir2 := DirExist(path2) != ""
 
@@ -426,12 +426,12 @@ ExecuteExplorerCapsAction()
 
                 if (isDir1 && isDir2)
                 {
-                    ; [Case 1] 둘 다 폴더
+                    ; [Case 1] Both folders
                     cmdStr := 'rclone check "' path1 '" "' path2 '" -P -v'
                 }
                 else if (!isDir1 && !isDir2)
                 {
-                    ; [Case 2] 둘 다 파일
+                    ; [Case 2] Both files
                     SplitPath path1, &file1, &dir1
                     SplitPath path2, &file2, &dir2
 
@@ -441,15 +441,15 @@ ExecuteExplorerCapsAction()
                     }
                     else
                     {
-                        ; 이름/확장자가 다르면 실행 안 함
-                        ToolTip "이름이나 확장자가 다른 파일은 비교할 수 없습니다."
+                        ; Skip if names/extensions differ
+                        ToolTip "Files with different names/extensions cannot be compared."
                         SetTimer () => ToolTip(), -2000
                         return
                     }
                 }
                 else
                 {
-                    ; [Case 3] 파일 vs 폴더
+                    ; [Case 3] File vs folder
                     if (!isDir1)
                     {
                         SplitPath path1, &file1, &dir1
@@ -462,10 +462,10 @@ ExecuteExplorerCapsAction()
                     }
                 }
 
-                ToolTip "경로 2 저장 완료! 비교를 시작합니다."
+                ToolTip "Path 2 saved! Starting comparison."
                 SetTimer () => ToolTip(), -1500
 
-                ; 창 제목 고정 + 프롬프트 고정 + 명령어 에코(출력) 후 실행
+                ; Fix window title + fixed prompt + echo command then execute
                 Run(A_ComSpec ' /k "(title Command Prompt) & prompt WORKSPACE$G & echo WORKSPACE^>' cmdStr ' & ' cmdStr '"', WorkDir)
             }
         }
@@ -481,14 +481,14 @@ ExecuteExplorerCapsAction()
 
 
 ; ---------------------------------------------------------------------------
-; ⏰ 절전 방지 타이머 (Caffeine 대체)  |  Alt + Space
+; ⏰ Keep-Awake Timer (Caffeine alternative)  |  Alt + Space
 ; ---------------------------------------------------------------------------
 global KeepAwakeActive   := false
 global KeepAwakeInfinite := false
 global KeepAwakeEndTime  := 0
 
-global SIM_INTERVAL_MS        := 270000   ; 270초 (Sleep 300초 대비 30초 마진)
-global USER_IDLE_THRESHOLD_MS := 240000   ; 4분 (Windows 화면 끄기와 맞춤)
+global SIM_INTERVAL_MS        := 270000   ; 270s (30s margin against Sleep 300s)
+global USER_IDLE_THRESHOLD_MS := 240000   ; 4 min (aligned with Windows display off)
 
 A_IconTip := "Override: inactive"
 
@@ -499,24 +499,24 @@ A_IconTip := "Override: inactive"
     if (KeepAwakeActive)
     {
         if (KeepAwakeInfinite)
-            status := "현재 상태: 무기한 활성 (Override: active)"
+            status := "Current: indefinite active (Override: active)"
         else
-            status := "남은 시간: " FormatRemaining(KeepAwakeEndTime - A_TickCount)
+            status := "Remaining: " FormatRemaining(KeepAwakeEndTime - A_TickCount)
 
-        text := "절전 방지 모드가 활성화되어 있습니다.`n`n"
+        text := "Keep-awake mode is active.`n`n"
               . status "`n`n"
-              . "계속 유지할까요, 아니면 종료할까요?"
+              . "Keep it active, or stop?"
 
-        if ShowConfirmDialog("절전 방지 상태", text)
+        if ShowConfirmDialog("Keep-Awake Status", text)
             StopKeepAwake()
         return
     }
 
     ib := InputBox(
-        "절전 방지 유지 시간을 '시간' 단위로 입력하세요.`n"
-        "(예: 1.5 = 1시간 30분, 0.25 = 15분)`n`n"
-        "비워두거나 0을 입력하면 무기한 활성화됩니다.",
-        "절전 방지 타이머",
+        "Enter the keep-awake duration in hours.`n"
+        "(e.g. 1.5 = 1h 30m, 0.25 = 15m)`n`n"
+        "Leave empty or enter 0 for indefinite mode.",
+        "Keep-Awake Timer",
         "w360 h150"
     )
 
@@ -536,14 +536,14 @@ A_IconTip := "Override: inactive"
         SetTimer(SimulateActivity, -SIM_INTERVAL_MS)
         UpdateTrayTip()
 
-        ToolTip("절전 방지: 무기한 활성화`n(화면은 정상적으로 꺼집니다)")
+        ToolTip("Keep-awake: indefinite mode`n(display will still turn off normally)")
         SetTimer(() => ToolTip(), -3000)
         return
     }
 
     if (!IsNumber(val) || Float(val) < 0)
     {
-        ToolTip("0보다 큰 숫자를 입력해주세요.")
+        ToolTip("Please enter a number greater than 0.")
         SetTimer(() => ToolTip(), -2000)
         return
     }
@@ -562,12 +562,12 @@ A_IconTip := "Override: inactive"
     SetTimer(UpdateTrayTip, 60000)
     UpdateTrayTip()
 
-    ToolTip("절전 방지 시작: " FormatHours(hours) "`n(화면은 정상적으로 꺼집니다)")
+    ToolTip("Keep-awake started: " FormatHours(hours) "`n(display will still turn off normally)")
     SetTimer(() => ToolTip(), -3000)
 }
 
 ; ─────────────────────────────────────────────────────────────────────────
-; F16 시뮬레이션 + 조건부 화면 끄기
+; F16 simulation + conditional display off
 ; ─────────────────────────────────────────────────────────────────────────
 SimulateActivity()
 {
@@ -578,10 +578,10 @@ SimulateActivity()
 
     SendInput("{F16}")
 
-    ; 자리 비움 판정
+    ; Idle detection
     if (A_TimeIdlePhysical > USER_IDLE_THRESHOLD_MS)
     {
-        ; ★ 오디오 재생 중이면 사용자가 미디어 시청 중으로 판단 → 화면 유지
+        ; ★ If audio is playing, assume the user is watching media -> keep display on
         if (IsAudioPlaying())
         {
             SetTimer(SimulateActivity, -SIM_INTERVAL_MS)
@@ -589,16 +589,16 @@ SimulateActivity()
         }
 
         Sleep(50)
-        SendMessage(0x0112, 0xF170, 2, , "Program Manager")   ; 화면 강제 끄기
+        SendMessage(0x0112, 0xF170, 2, , "Program Manager")   ; Force display off
     }
 
     SetTimer(SimulateActivity, -SIM_INTERVAL_MS)
 }
 
 ; ─────────────────────────────────────────────────────────────────────────
-; 오디오 재생 여부 감지 (IAudioMeterInformation::GetPeakValue)
-;   - 기본 출력 장치의 피크 레벨이 0보다 크면 오디오 재생 중
-;   - 잠금 화면 상태에서도 감지 가능
+; Audio playback detection (IAudioMeterInformation::GetPeakValue)
+;   - If the default output device's peak level > 0, audio is playing
+;   - Detectable even on the lock screen
 ; ─────────────────────────────────────────────────────────────────────────
 IsAudioPlaying()
 {
@@ -619,7 +619,7 @@ IsAudioPlaying()
 }
 
 ; ─────────────────────────────────────────────────────────────────────────
-; 절전 방지 종료
+; Stop keep-awake
 ; ─────────────────────────────────────────────────────────────────────────
 StopKeepAwake()
 {
@@ -640,12 +640,12 @@ StopKeepAwake()
 
     A_IconTip := "Override: inactive"
 
-    ToolTip("절전 방지가 종료되었습니다.`nPC가 정상적으로 절전 모드에 들어갈 수 있습니다.")
+    ToolTip("Keep-awake stopped.`nThe PC can now sleep normally.")
     SetTimer(() => ToolTip(), -3000)
 }
 
 ; ─────────────────────────────────────────────────────────────────────────
-; 트레이 툴팁 갱신
+; Refresh tray tooltip
 ; ─────────────────────────────────────────────────────────────────────────
 UpdateTrayTip()
 {
@@ -669,7 +669,7 @@ UpdateTrayTip()
 }
 
 ; ─────────────────────────────────────────────────────────────────────────
-; 시간 포맷 헬퍼
+; Time formatting helpers
 ; ─────────────────────────────────────────────────────────────────────────
 FormatRemaining(ms)
 {
@@ -679,10 +679,10 @@ FormatRemaining(ms)
     s := Mod(totalSec, 60)
 
     if (h > 0)
-        return h "시간 " m "분"
+        return h "h " m "m"
     if (m > 0)
-        return m "분 " s "초"
-    return s "초"
+        return m "m " s "s"
+    return s "s"
 }
 
 FormatHours(hours)
@@ -692,14 +692,14 @@ FormatHours(hours)
     m := Mod(totalMin, 60)
 
     if (h > 0 && m > 0)
-        return h "시간 " m "분"
+        return h "h " m "m"
     if (h > 0)
-        return h "시간"
-    return m "분"
+        return h "h"
+    return m "m"
 }
 
 ; ─────────────────────────────────────────────────────────────────────────
-; 커스텀 확인 다이얼로그
+; Custom confirmation dialog
 ; ─────────────────────────────────────────────────────────────────────────
 ShowConfirmDialog(title, text)
 {
@@ -711,8 +711,8 @@ ShowConfirmDialog(title, text)
     dlg.AddText("w340", text)
     dlg.ConfirmResult := false
 
-    dlg.AddButton("w120 h32 Default", "유지").OnEvent("Click", (*) => dlg.Destroy())
-    dlg.AddButton("x+20 w120 h32", "종료").OnEvent("Click", ExitConfirm.Bind(dlg))
+    dlg.AddButton("w120 h32 Default", "Keep").OnEvent("Click", (*) => dlg.Destroy())
+    dlg.AddButton("x+20 w120 h32", "Stop").OnEvent("Click", ExitConfirm.Bind(dlg))
 
     dlg.Show("AutoSize Center")
     WinWaitClose("ahk_id " dlg.Hwnd)
@@ -728,19 +728,19 @@ ExitConfirm(dlg, *)
 
 
 ; ---------------------------------------------------------------------------
-; 🟣 음소거 & Auto-Mute 제어
+; 🟣 Mute & Auto-Mute Control
 ; ---------------------------------------------------------------------------
 global prevAudioDevice := ""
-global autoMuteEnabled := false     ; Auto-Mute 기능 ON/OFF (기본 OFF)
+global autoMuteEnabled := false     ; Auto-Mute ON/OFF (default OFF)
 
-; 스크립트 시작 시 현재 기본 오디오 장치 이름 저장
+; Save current default audio device name at script start
 try {
     prevAudioDevice := SoundGetName()
 }
 
 
 ; ---------------------------------------------------------------------------
-; 🟣 Volume_Mute: 네이티브 음소거 + Auto-Mute 토글 (동시)
+; 🟣 Volume_Mute: native mute + Auto-Mute toggle (simultaneous)
 ; ---------------------------------------------------------------------------
 ~Volume_Mute::
 {
@@ -763,7 +763,7 @@ try {
 
 
 ; ---------------------------------------------------------------------------
-; 🟣 CheckAudioDeviceChange (Auto-Mute 부속 함수 - 장치 변경 감지)
+; 🟣 CheckAudioDeviceChange (Auto-Mute sub - device change detection)
 ; ---------------------------------------------------------------------------
 CheckAudioDeviceChange()
 {
@@ -772,7 +772,7 @@ CheckAudioDeviceChange()
     {
         currentAudioDevice := SoundGetName()
 
-        ; 오디오 장치가 바뀌면 무조건 즉시 음소거
+        ; Immediately mute whenever the audio device changes
         if (prevAudioDevice != "" && currentAudioDevice != prevAudioDevice)
         {
             SoundSetMute(1)
@@ -784,7 +784,7 @@ CheckAudioDeviceChange()
 
 
 ; ---------------------------------------------------------------------------
-; 🟢 WiFi 토글 (Volume Up)
+; 🟢 WiFi toggle (Volume Up)
 ; ---------------------------------------------------------------------------
 global radioBusyWiFi := false
 
@@ -792,7 +792,7 @@ $Volume_Up::ToggleRadio("WiFi")
 
 
 ; ---------------------------------------------------------------------------
-; 🔵 Bluetooth 토글 (Volume Down)
+; 🔵 Bluetooth toggle (Volume Down)
 ; ---------------------------------------------------------------------------
 global radioBusyBluetooth := false
 
@@ -800,12 +800,12 @@ $Volume_Down::ToggleRadio("Bluetooth")
 
 
 ; ---------------------------------------------------------------------------
-; 🟢🔵 ToggleRadio (WiFi / Bluetooth 토글 전용 공용 함수)
+; 🟢🔵 ToggleRadio (shared function for WiFi / Bluetooth toggle)
 ; ---------------------------------------------------------------------------
 ToggleRadio(radioType) {
     global radioBusyWiFi, radioBusyBluetooth
 
-    ; ── busy 확인 + 즉시 잠금 ──
+    ; ── Check busy + acquire lock immediately ──
     if (radioType = "WiFi") {
         if (radioBusyWiFi)
             return
@@ -818,7 +818,7 @@ ToggleRadio(radioType) {
         return
     }
 
-    ; ★ 하드코딩된 경로 대신 A_ScriptDir 사용 (RadioToggle.ps1과 같은 폴더 기준)
+    ; ★ Use A_ScriptDir instead of hardcoded path (RadioToggle.ps1 lives next to this script)
     signalPath := A_ScriptDir "\RadioToggle.signal"
     resultPath := A_ScriptDir "\RadioToggle.result"
     psPath     := A_ScriptDir "\RadioToggle.ps1"
@@ -828,7 +828,7 @@ ToggleRadio(radioType) {
     if FileExist(resultPath)
         FileDelete(resultPath)
 
-    ; ── PS 비동기 실행 ──
+    ; ── Launch PS asynchronously ──
     Run(
         'powershell.exe -Mta -WindowStyle Hidden -NoProfile '
         '-ExecutionPolicy Bypass -File "' psPath '" '
@@ -839,7 +839,7 @@ ToggleRadio(radioType) {
     startTime := A_TickCount
     tooltipShown := false
 
-    ; ── signal 감시 + PS 종료 대기 ──
+    ; ── Watch signal + wait for PS to exit ──
     Loop {
         if (!tooltipShown && FileExist(signalPath)) {
             dir := ""
@@ -863,7 +863,7 @@ ToggleRadio(radioType) {
         if !ProcessExist(pid)
             break
 
-        ; ★ 타임아웃 15초 → 30초 (BT Off는 오래 걸릴 수 있음)
+        ; ★ Timeout 15s -> 30s (BT Off can take a while)
         if (A_TickCount - startTime > 30000) {
             try ProcessClose(pid)
             break
@@ -872,10 +872,10 @@ ToggleRadio(radioType) {
         Sleep(50)
     }
 
-    ; ── 파일 flush 대기 ──
+    ; ── Wait for file flush ──
     Sleep(150)
 
-    ; ── signal 놓친 경우 폴백 ──
+    ; ── Fallback if signal was missed ──
     if (!tooltipShown && FileExist(signalPath)) {
         dir := ""
         Loop 5 {
@@ -895,7 +895,7 @@ ToggleRadio(radioType) {
         }
     }
 
-    ; ── result 읽기 (재시도) ──
+    ; ── Read result (retry) ──
     result := ""
     Loop 10 {
         if FileExist(resultPath) {
@@ -910,30 +910,30 @@ ToggleRadio(radioType) {
         Sleep(100)
     }
 
-    ; ── 최종 판정 ──
+    ; ── Final decision ──
     if (result = "OK") {
-        ; 성공: 아무것도 안 함
+        ; Success: do nothing
     } else if (result = "") {
-        ; PS가 result를 못 씀 (타임아웃으로 강제 종료, 또는 파일 flush 실패)
-        ; signal을 이미 봤다면 토글 방향은 확정된 것이므로 실패 표시하지 않음
+        ; PS couldn't write result (forced kill on timeout, or flush failed)
+        ; If signal was already seen, the toggle direction is confirmed - don't mark as failure
         if (!tooltipShown) {
             ToolTip(radioType " : timeout")
             SetTimer(() => ToolTip(), -2000)
         }
-        ; signal 봤으면 아무것도 안 함 (이미 "Bluetooth Off" 표시됨)
+        ; If signal was seen, do nothing (already showing "Bluetooth Off")
     } else {
-        ; 명확한 실패 (SetState:Denied, Exception 등)
+        ; Clear failure (SetState:Denied, Exception, etc.)
         ToolTip(radioType " toggle failed")
         SetTimer(() => ToolTip(), -2000)
     }
 
-    ; ── 정리 ──
+    ; ── Cleanup ──
     if FileExist(signalPath)
         FileDelete(signalPath)
     if FileExist(resultPath)
         FileDelete(resultPath)
 
-    ; ── busy 해제 ──
+    ; ── Release lock ──
     if (radioType = "WiFi")
         radioBusyWiFi := false
     else
