@@ -48,27 +48,27 @@ global st_caps_count := 0
 ; ---------------------------------------------------------------------------
 #HotIf WinActive("ahk_exe sublime_text.exe") && GetKeyState("CapsLock", "P")
 
-*a::Send "{Blind}{Text} + "
-*s::Send "{Blind}{Text} - "
-*x::Send "{Blind}{Text} * "
-*d::Send "{Blind}{Text} / "
-*e::Send "{Blind}{Text} = "
-*w::Send "{Blind}{Text} ** "
+*a::Send("{Blind}{Text} + ")
+*s::Send("{Blind}{Text} - ")
+*x::Send("{Blind}{Text} * ")
+*d::Send("{Blind}{Text} / ")
+*e::Send("{Blind}{Text} = ")
+*w::Send("{Blind}{Text} ** ")
 
 *q::
 {
-    Send "{Blind}{Text}()"
-    Send "{Blind}{Left}"
+    Send("{Blind}{Text}()")
+    Send("{Blind}{Left}")
 }
 *c::
 {
-    Send "{Blind}{Text}[]"
-    Send "{Blind}{Left}"
+    Send("{Blind}{Text}[]")
+    Send("{Blind}{Left}")
 }
 *z::
 {
-    Send "{Blind}{Text}{}"
-    Send "{Blind}{Left}"
+    Send("{Blind}{Text}{}")
+    Send("{Blind}{Left}")
 }
 
 ; ---------------------------------------------------------------------------
@@ -123,7 +123,7 @@ global st_caps_count := 0
 }
 ::pr::
 {
-    Send("print(f`"`"{Left 1} = {{}{}}{Left 5}")
+    Send("print(f`"`"{Left 1} = {{}{}}{Left 5}")")
 }
 ::pi::
 {
@@ -154,7 +154,7 @@ global st_build_mode := 1
         st_build_mode := (st_build_mode = 1) ? 2 : 1
 
         mode_name := (st_build_mode = 1) ? "Python_Anaconda" : "Java_Run"
-        ToolTip "Build Mode → " mode_name
+        ToolTip("Build Mode → " mode_name)
         SetTimer(() => ToolTip(), -1300)
 
         last_toggle_time := now
@@ -173,15 +173,15 @@ global st_build_mode := 1
     global st_build_mode
 
     if (st_build_mode = 1)
-        SendInput "^+1"      ; Python_Anaconda
+        SendInput("^+1")      ; Python_Anaconda
     else
-        SendInput "^+2"      ; Java_Run
+        SendInput("^+2")      ; Java_Run
 }
 
 ; Shift + CapsLock → open Git Log (gs_log)
 +CapsLock::
 {
-    SendInput "^+3"          ; Ctrl + Shift + 3
+    SendInput("^+3")          ; Ctrl + Shift + 3
 }
 
 #HotIf
