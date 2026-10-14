@@ -4,7 +4,7 @@ param(
     [string]$RadioType
 )
 
-; ★ 하드코딩된 경로 대신 $PSScriptRoot 사용 (스크립트가 위치한 폴더 기준)
+; ★ Use $PSScriptRoot instead of a hardcoded path (relative to the script's folder)
 $signalPath = Join-Path $PSScriptRoot "RadioToggle.signal"
 $resultPath = Join-Path $PSScriptRoot "RadioToggle.result"
 $logPath    = Join-Path $PSScriptRoot "RadioToggle.log"
@@ -39,7 +39,7 @@ try {
     $AccessStatusClass = [Windows.Devices.Radios.RadioAccessStatus,Windows.System.Devices,ContentType=WindowsRuntime]
     $RadioStateClass   = [Windows.Devices.Radios.RadioState,Windows.System.Devices,ContentType=WindowsRuntime]
 
-    # 1) 접근 권한
+    # 1) Access permission
     Write-Log "Step 1: RequestAccessAsync"
     $access = Await ($RadioClass::RequestAccessAsync()) ($AccessStatusClass)
     Write-Log "  Access = $access"
@@ -49,7 +49,7 @@ try {
         exit 10
     }
 
-    # 2) 라디오 목록
+    # 2) Radio list
     Write-Log "Step 2: GetRadiosAsync"
     $radios = Await ($RadioClass::GetRadiosAsync()) ([System.Collections.Generic.IReadOnlyList[Windows.Devices.Radios.Radio]])
     Write-Log "  Radio count = $($radios.Count)"
@@ -65,7 +65,7 @@ try {
         exit 2
     }
 
-    # 3) 방향 결정
+    # 3) Determine direction
     $currentState = $target.State.ToString()
     Write-Log "Step 3: Current = $currentState"
 
@@ -77,7 +77,7 @@ try {
         $direction = "On"
     }
 
-    # 4) signal 파일 기록
+    # 4) Write signal file
     [System.IO.File]::WriteAllText($signalPath, $direction)
     Write-Log "Step 4: signal written = $direction"
 
