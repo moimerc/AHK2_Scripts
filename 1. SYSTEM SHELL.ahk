@@ -180,11 +180,11 @@ $PrintScreen::
     }
 
     ; 2. Otherwise (pure Shift+Esc, or Alt etc. stuck), force-release
-    Send "{Blind}{LControl Up}{RControl Up}{LAlt Up}{RAlt Up}{LWin Up}{RWin Up}{Shift Up}"
+    Send("{Blind}{LControl Up}{RControl Up}{LAlt Up}{RAlt Up}{LWin Up}{RWin Up}{Shift Up}")
     SetCapsLockState("Off")
     RunWait("taskkill /f /im explorer.exe", , "Hide")
     Run("explorer.exe")
-    MsgBox "All key states have been released and Explorer (explorer.exe) has been restarted."
+    MsgBox("All key states have been released and Explorer (explorer.exe) has been restarted.")
 }
 
 
@@ -311,17 +311,17 @@ ExecuteCapsAction()
     
     if (caps_count == 1)      ; 1 tap
     {
-        SendText "python .py"
-        Send "{Left 3}"
+        SendText("python .py")
+        Send("{Left 3}")
     }
     else if (caps_count == 2) ; 2 taps
     {
-        SendText "java "
+        SendText("java ")
     }
     else if (caps_count >= 3) ; 3+ taps
     {
-        SendText "javac .java"
-        Send "{Left 5}"
+        SendText("javac .java")
+        Send("{Left 5}")
     }
     
     caps_count := 0 ; reset count
@@ -372,7 +372,7 @@ ExecuteExplorerCapsAction()
 
         oldClip := ClipboardAll()
         A_Clipboard := ""
-        Send "^c" 
+        Send("^c") 
 
         if ClipWait(0.3)
         {
@@ -380,7 +380,7 @@ ExecuteExplorerCapsAction()
             SplitPath targetPath, , , , &nameNoExt
             A_Clipboard := nameNoExt
             
-            ToolTip "Copy complete: " nameNoExt
+            ToolTip("Copy complete: " nameNoExt)
             SetTimer () => ToolTip(), -1200
         }
         else
@@ -394,7 +394,7 @@ ExecuteExplorerCapsAction()
         ; 2 taps: copy path and push to CompareQueue
         oldClip := ClipboardAll()
         A_Clipboard := ""
-        Send "^c"
+        Send("^c")
 
         if ClipWait(0.3)
         {
@@ -409,7 +409,7 @@ ExecuteExplorerCapsAction()
 
             if (CompareQueue.Length == 1)
             {
-                ToolTip "Path 1 saved: " targetPath
+                ToolTip("Path 1 saved: " targetPath)
                 SetTimer () => ToolTip(), -1500
             }
             else if (CompareQueue.Length == 2)
@@ -442,7 +442,7 @@ ExecuteExplorerCapsAction()
                     else
                     {
                         ; Skip if names/extensions differ
-                        ToolTip "Files with different names/extensions cannot be compared."
+                        ToolTip("Files with different names/extensions cannot be compared.")
                         SetTimer () => ToolTip(), -2000
                         return
                     }
@@ -462,7 +462,7 @@ ExecuteExplorerCapsAction()
                     }
                 }
 
-                ToolTip "Path 2 saved! Starting comparison."
+                ToolTip("Path 2 saved! Starting comparison.")
                 SetTimer () => ToolTip(), -1500
 
                 ; Fix window title + fixed prompt + echo command then execute
