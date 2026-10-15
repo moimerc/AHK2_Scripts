@@ -65,6 +65,7 @@ OS-level enhancements, input handling, file verification, and hardware control.
 * **Audio-Aware Keep-Awake Timer (`Alt + Space`)**
   * Designed as a replacement for Caffeine-style utilities.  
     Uses `SetThreadExecutionState` + periodic `F16` simulation so the system stays awake while still allowing the display to turn off.
+  * **Note**: A brief flicker may occur when the display powers off or wakes back up. This is expected behavior caused by the combination of periodic `F16` simulation and display power management.
   * Supports timed (hours) and indefinite modes. Tray tooltip shows remaining time.
   * When idle, checks audio peak level via Core Audio API. If sound is playing the display stays on; otherwise the monitor is turned off while the system remains awake.
 
