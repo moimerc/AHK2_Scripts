@@ -22,7 +22,7 @@ AHK2_Scripts/
 │   ├── Python_Anaconda.sublime-build
 │   ├── Python.sublime-settings
 │   └── Preferences.sublime-settings
-├── Assets/                       # Screenshots for the Task Scheduler setup guide
+├── assets/                       # Screenshots for the Task Scheduler setup guide
 │   └── 1.png ... 7.png
 └── README.md
 ```
@@ -181,30 +181,30 @@ or the path shown by `Preferences → Browse Packages...`.
 1. Open **Task Scheduler** → **Create Task** (not “Create Basic Task”).
 
 2. **General**  
-   ![General](Assets/1.png)  
+   ![General](assets/1.png)  
    - Name: `ThrottleStopOBS`  
    - Run only when user is logged on  
    - Run with highest privileges
 
 3. **Triggers**  
-   ![Triggers](Assets/2.png)  
+   ![Triggers](assets/2.png)  
    - Leave empty (the task is started manually by the script).
 
 4. **Actions**  
-   ![Actions](Assets/3.png)  
-   ![Edit Action](Assets/4.png)  
+   ![Actions](assets/3.png)  
+   ![Edit Action](assets/4.png)  
    - Start a program  
    - Program: path to `AutoHotkey64.exe`  
    - Arguments: path to `ThrottleStopOBS.ahk`  
    (both paths in double quotes)
 
 5. **Conditions**  
-   ![Conditions](Assets/5.png)  
-   ![Conditions 2](Assets/6.png)  
+   ![Conditions](assets/5.png)  
+   ![Conditions 2](assets/6.png)  
    - Leave all options unchecked.
 
 6. **Settings**  
-   ![Settings](Assets/7.png)  
+   ![Settings](assets/7.png)  
    - Allow task to be run on demand
 
 7. Click OK. Test with `Alt + U`.
