@@ -56,7 +56,7 @@ OS-level enhancements, input handling, file verification, and hardware control.
 * **Terminal & Browser Navigation**
   * `Ctrl + Left/Right` switches tabs in Windows Terminal, Chrome, and Edge.
   * Multi-tap `CapsLock` in terminals: 1 = `python .py`, 2 = `java `, 3 = `javac .java`.
-  * `Ctrl + Alt + LWin` → `conda activate whisper_env` (quick virtual environment activation).
+  * `Ctrl + Alt + LWin` → Activates your default Conda virtual environment (configurable in `1. SYSTEM SHELL.ahk`).
 
 * **Explorer RClone Stash Engine (`CapsLock` in File Explorer)**
   * **Single tap**: Clears the queue and copies the selected filename (without extension).
