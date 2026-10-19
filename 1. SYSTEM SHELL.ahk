@@ -41,7 +41,7 @@
 ;    └─ Tray tooltip : refreshed every 60s
 ;
 ; 🟣 Mute & Auto-Mute Control
-;    ├─ Native mute & Auto-Mute toggle  |  Volume_Mute
+;    ├─ Native mute & Auto-Mute toggle          |  Volume_Mute
 ;    └─ Device change detection (Auto-Mute sub) | CheckAudioDeviceChange (internal)
 ;
 ; 🟢 WiFi toggle (Volume Up)             |  Volume_Up
@@ -59,6 +59,7 @@ global caps_count := 0
 global explorer_caps_count := 0
 global CompareQueue := []
 global WorkDir := "C:\Path\To\Your\Workspace"  ; <-- set this to your workspace path
+global DefaultVenvCmd := "conda activate my_env" ; <-- Modify this to match your environment name (e.g., "conda activate my_env").
 
 ; ---------------------------------------------------------------------------
 ; ⬜ Global Basics
@@ -296,8 +297,8 @@ CapsLock::
     SetTimer(ExecuteCapsAction, -180)
 }
 
-; Ctrl + Alt + Win → Activate venv
-^!LWin::Send("conda activate whisper_env")
+; Ctrl + Alt + Win → Activate my default virtual environment
+^!LWin::Send(DefaultVenvCmd)
 
 #HotIf
 
